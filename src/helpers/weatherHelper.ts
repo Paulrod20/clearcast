@@ -1,24 +1,26 @@
-import type { WeatherData } from '../types/types';
+import type { WeatherData, GeoLocation } from '../types/types';
 import { setFailureReason } from './failureHelper';
 
 const API_KEY = import.meta.env.VITE_WEATHER_API_KEY;
 const BASE_URL = 'https://api.openweathermap.org/data/2.5/weather';
 
-export const fetchWeather = async (city: string): Promise<WeatherData> => { 
-    const response = await fetch(`${BASE_URL}?q=${city}&appid=${API_KEY}&units=imperial`);
-    
+export const fetchWeather = async (lat: number, lon: number): Promise<WeatherData> => {
+    const response = await fetch(
+        `${BASE_URL}?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=imperial`
+    )
+
     if (!response.ok) {
-        setFailureReason("City not found");
-        throw new Error("City not found");
+        setFailureReason("Unable to fetch weather")
+        throw new Error("Unable to fetch weather")
     }
 
-    setFailureReason(undefined);
+    setFailureReason(undefined)
 
-    const data = await response.json();
+    const data = await response.json()
 
     return {
         city: data.name,
-        state: data.sys.state ?? "",
+        state: "",
         country: data.sys.country,
         temperature: Math.round(data.main.temp),
         feelsLike: Math.round(data.main.feels_like),
@@ -50,4 +52,26 @@ export const getConditionClass = (condition: string): string => {
         default:
             return "default";
     }
+}
+
+export const fetchGeoSuggestions = async (query: string): Promise<GeoLocation[]> => { 
+    
+
+    if (query.trim().length < 2) return []
+
+    const response = await fetch(
+        `https://api.openweathermap.org/geo/1.0/direct?q=${query}&limit=5&appid=${API_KEY}`
+    )
+
+    if (!response.ok) return []
+
+    const data = await response.json()
+
+    return data.map((item: GeoLocation) => ({
+        name: item.name,
+        state: item.state ?? "",
+        country: item.country,
+        lat: item.lat,
+        lon: item.lon
+    }))
 }
