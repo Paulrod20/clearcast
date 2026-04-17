@@ -1,0 +1,231 @@
+// 1. Variable Definitions
+//
+// 2. Global Reset
+//
+// 3. Weather Wrapper
+//
+// 4. Weather Card
+//
+// 5. App Shell
+//
+// 6. Search Bar
+//
+// 7. App Title
+
+
+//
+// ------------------ Variable Definitions ------------------
+//
+
+// Gradients
+$gradient-clear: linear-gradient(135deg, #f7971e, #ffd200);
+$gradient-clouds: linear-gradient(135deg, #616161, #9bc5c3);
+$gradient-rain: linear-gradient(135deg, #1c92d2, #f2fcfe);
+$gradient-thunderstorm: linear-gradient(135deg, #0f0c29, #302b63);
+$gradient-snow: linear-gradient(135deg, #e0eafc, #cfdef3);
+$gradient-mist: linear-gradient(135deg, #606c88, #3f4c6b);
+$gradient-default: linear-gradient(135deg, #2980b9, #6dd5fa);
+
+// Card
+$card-bg: rgba(255, 255, 255, 0.15);
+$card-border: 1px solid rgba(255, 255, 255, 0.3);
+$card-blur: blur(12px);
+$card-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+$card-radius: 24px;
+
+// Text
+$text-white: #ffffff;
+$text-muted-white: rgba(255, 255, 255, 0.9);
+$text-faint-white: rgba(255, 255, 255, 0.6);
+
+// Spacing
+$card-padding: 40px;
+$wrapper-padding: 60px 20px;
+$app-max-width: 500px;
+$space-3: 4px;
+$space-6: 16px;
+
+
+// // -------------------------------------------------------
+// // ------------------ Global Reset ----------------------
+// // -------------------------------------------------------
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body, #root {
+    min-height: 100vh;
+    width: 100%;
+}
+
+
+// // -------------------------------------------------------
+// // ------------------ Weather Wrapper --------------------
+// // -------------------------------------------------------
+
+.weather-wrapper {
+    min-height: 100vh;
+    transition: background 0.6s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: $wrapper-padding;
+
+    &.clear { background: $gradient-clear; }
+    &.clouds { background: $gradient-clouds; }
+    &.rain { background: $gradient-rain; }
+    &.thunderstorm { background: $gradient-thunderstorm; }
+    &.snow { background: $gradient-snow; }
+    &.mist { background: $gradient-mist; }
+    &.default { background: $gradient-default; }
+}
+
+
+// // -----------------------------------------------------
+// // ------------------ Weather Card ---------------------
+// // -----------------------------------------------------
+
+.weather-card {
+    background: $card-bg;
+    backdrop-filter: $card-blur;
+    -webkit-backdrop-filter: $card-blur;
+    border: $card-border;
+    border-radius: $card-radius;
+    box-shadow: $card-shadow;
+    padding: $card-padding;
+    max-width: $app-max-width;
+    width: 100%;
+    color: $text-white;
+    text-align: center;
+
+    .weather-city {
+        font-size: 1.8rem;
+        font-weight: 700;
+        margin-bottom: 4px;
+    }
+
+    .weather-description {
+        font-size: 1rem;
+        opacity: 0.9;
+        text-transform: capitalize;
+        margin-bottom: 16px;
+    }
+
+    .weather-icon {
+        width: 80px;
+        height: 80px;
+        filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+    }
+
+    .weather-temperature {
+        font-size: 5rem;
+        font-weight: 800;
+        line-height: 1;
+        margin: 16px 0 8px;
+    }
+
+    .weather-stats {
+        display: flex;
+        justify-content: center;
+        gap: 24px;
+        font-size: 0.95rem;
+        flex-wrap: wrap;
+        margin-top: 16px;
+        opacity: 0.9;
+    }
+}
+
+
+// // ----------------------------------------------------
+// // ------------------ App Shell -----------------------
+// // ----------------------------------------------------
+
+.app-shell {
+    width: 100%;
+    max-width: $app-max-width;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: $space-6;
+}
+
+.app-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: $space-3;
+    text-align: center;
+}
+
+.app-center {
+    display: flex;
+    justify-content: center;
+}
+
+
+// // ----------------------------------------------------
+// // ------------------ Search Bar ---------------------
+// // ----------------------------------------------------
+
+.search-wrapper {
+    width: 100%;
+    display: flex;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+
+    .search-input {
+        flex: 1;
+        background: rgba(0, 0, 0, 0.2);
+        border: none;
+        border-right: 1px solid rgba(255, 255, 255, 0.2);
+        color: $text-white;
+        padding: 14px 18px;
+        font-size: 1rem;
+        outline: none;
+
+        &::placeholder {
+            color: $text-faint-white;
+        }
+
+        &:focus {
+            background: rgba(0, 0, 0, 0.25);
+        }
+    }
+
+    .search-btn {
+        background: rgba(0, 0, 0, 0.2);
+        border: none;
+        color: $text-white;
+        font-weight: 600;
+        padding: 0 22px;
+        cursor: pointer;
+        font-size: 0.95rem;
+        transition: background 0.2s ease;
+
+        &:hover {
+            background: rgba(0, 0, 0, 0.3);
+        }
+    }
+}
+
+
+// // ----------------------------------------------------
+// // ------------------ App Title ---------------------
+// // ----------------------------------------------------
+
+.app-title {
+    color: $text-white;
+    font-size: 2.5rem;
+    font-weight: 800;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    margin-bottom: 4px;
+}
+
+.app-subtitle {
+    color: $text-muted-white;
+}

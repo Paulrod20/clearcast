@@ -30,3 +30,24 @@ export const fetchWeather = async (city: string): Promise<WeatherData> => {
     }
 }
 
+export const getConditionClass = (condition: string): string => {
+    switch (condition) {
+        case "Clear":
+            return "clear";
+        case "Clouds":
+            return "clouds";
+        case "Rain":
+        case "Drizzle":
+            return "rain";
+        case "Thunderstorm":
+            return "thunderstorm";
+        case "Snow":
+            return "snow";
+        case "Mist":
+        case "Fog":
+        case "Haze":
+            return "mist";
+        default:
+            return "default";
+    }
+}
